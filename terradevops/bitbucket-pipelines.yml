@@ -1,0 +1,18 @@
+image: hashicorp/terraform:full
+pipelines:
+    default:
+        - step:
+            script:
+                - terraform init
+                - terraform validate
+                - terraform workspace new dibo
+                - terraform plan
+    branches:
+        dev:
+            - step:
+                script:
+                    - terraform init
+                    - terraform validate
+                    - terraform workspace select dev
+                    - terraform plan
+                    - terraform destroy -input=false -auto-approve
